@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Food Deal Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- External libs for OCR + confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Top Bar / Uploader -->
+  <header class="topbar">
+    <div class="uploader">
+      <!-- Changed from <label for="fileInput"> to a real button + JS-triggered click -->
+      <button id="uploadProxy" type="button" class="upload-btn" aria-controls="fileInput">
+        Upload promo image
+      </button>
+      <!-- Keep the native input visually hidden but programmatically clickable -->
+      <input id="fileInput" type="file" accept="image/*" />
+      <span id="uploadStatus" class="status-pill" aria-live="polite">No image yet</span>
+    </div>
+    <div id="thumbWrap" class="thumb-wrap hidden">
+      <img id="thumb" alt="Uploaded preview" />
+    </div>
+  </header>
+
+  <!-- Landing / CTA -->
+  <main id="landing" class="landing">
+    <button id="cta" class="cta">To buy or not to buy?</button>
+
+    <!-- Loader (hidden until analyzing) -->
+    <div id="loader" class="loader hidden" aria-live="polite">
+      <div class="spinner"></div>
+      <p>Consulting the snack oracles…</p>
+    </div>
+  </main>
+
+  <!-- Results Section -->
+  <section id="results" class="results hidden" aria-live="polite">
+    <div class="verdict-card">
+      <h2 id="verdictTitle" class="verdict-title">—</h2>
+      <p id="verdictQuip" class="quip"></p>
+      <div class="actions">
+        <button id="seeWhy" class="link-like">see why →</button>
+        <button id="reset" class="reset-btn">Reset</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- See Why Section -->
+  <section id="why" class="why hidden">
+    <div class="why-head">
+      <h3>Deal breakdown</h3>
+      <div class="savings-badge">
+        <span id="savingsPct">—%</span> savings
+      </div>
+    </div>
+
+    <div class="why-body">
+      <div class="poster-pane">
+        <img id="posterPreview" alt="Poster under review" />
+        <div class="deal-summary">
+          <h4>Detected deal</h4>
+          <ul id="dealFacts"></ul>
+        </div>
+      </div>
+
+      <div class="flags-pane">
+        <h4>Marketing BS meter</h4>
+        <p class="flags-tip">We scan for urgency hype, vague baselines, fine-print shenanigans, and saucy asterisks.</p>
+        <div class="table-wrap">
+          <table class="flags-table" id="flagsTable" aria-describedby="flagsHelp">
+            <thead>
+              <tr>
+                <th>Severity</th>
+                <th>Trigger</th>
+                <th>Reasoning</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <small id="flagsHelp" class="legend">
+          <span class="pill red">red</span> strongly misleading ·
+          <span class="pill yellow">yellow</span> caution ·
+          <span class="pill green">green</span> clarifying
+        </small>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Made for hungry humans. No backend, just brainy browser magic.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
