@@ -1,0 +1,52 @@
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<div class="app">
+  <header>
+    <h1>Sign → Deal (Slogan Matcher)</h1>
+    <p>Upload a sign photo. We’ll OCR it, detect the store by its slogan/keywords, and open the deal.</p>
+  </header>
+
+  <section class="uploader" id="dropzone">
+    <input id="fileInput" type="file" accept="image/*" />
+    <button id="pickBtn" class="btn">Upload / Take Photo</button>
+    <button id="demoBtn" class="btn btn-ghost">Use Demo Image</button>
+    <label class="toggle">
+      <input id="autoOpen" type="checkbox" checked />
+      <span>Auto-open when confident</span>
+    </label>
+    <p class="hint">Tip: drag & drop or paste (⌘/Ctrl+V) an image.</p>
+    <img id="preview" alt="Preview" />
+  </section>
+
+  <section class="actions">
+    <button id="scanBtn" class="btn primary" disabled>Detect & Link</button>
+    <div id="progress" class="progress" hidden>
+      <div class="bar" id="progressBar" style="width:0%"></div>
+    </div>
+  </section>
+
+  <section class="results" id="results" hidden>
+    <div class="card">
+      <h2>Detected Store</h2>
+      <div id="storeBlock"></div>
+    </div>
+    <div class="card">
+      <h2>Why we think so</h2>
+      <pre id="explain" class="mono"></pre>
+      <details>
+        <summary>Show OCR text</summary>
+        <pre id="ocrText" class="mono small"></pre>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    <small>All client-side. Extend the brand map for more accuracy. OCR: <a href="https://github.com/naptha/tesseract.js" target="_blank" rel="noopener">Tesseract.js</a>, fuzzy match: <a href="https://fusejs.io" target="_blank" rel="noopener">Fuse.js</a>.</small>
+  </footer>
+</div>
+
+<!-- OCR + Fuzzy libraries -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
