@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daisy Love Timer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="toolbar">
+      <h1 class="title">Daisy Love Timer</h1>
+
+      <div class="controls">
+        <label class="control">
+          <span>Petals</span>
+          <input id="petalCount" type="number" min="5" max="48" step="1" value="21" />
+        </label>
+
+        <label class="control">
+          <span>Interval (ms)</span>
+          <input id="interval" type="number" min="300" step="50" value="1200" />
+        </label>
+
+        <button id="startBtn" class="btn">Start</button>
+        <button id="resetBtn" class="btn btn-ghost">Reset</button>
+      </div>
+    </header>
+
+    <section id="garden" aria-label="Daisy timer">
+      <div id="daisy" class="daisy" role="img" aria-label="A daisy with many petals"></div>
+    </section>
+
+    <section class="status">
+      <div id="message" class="message" aria-live="polite">Ready?</div>
+      <div id="count" class="count">Petals left: –</div>
+    </section>
+
+    <footer class="hint">
+      Tip: change petal count or speed, then press <b>Start</b>. The last petal decides the mood 🌼
+    </footer>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
