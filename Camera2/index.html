@@ -1,0 +1,103 @@
+<!--
+Image interpretation (from the posted photo):
+Restaurant: McDonald's (McVALUE branding visible)
+Deal type: "Buy One, Add One for $1"  → pay regular price for the 1st item, add a 2nd for $1
+Price: $1 for the additional item
+Time/day limits: none shown on the sign → ASSUME "limited-time, all day" and "participating locations"
+Items shown: burger, chicken sandwich, nuggets, fries (sign suggests sandwich/nuggets; fries are pictured but not guaranteed to be part of the deal)
+Assumed regular prices below are placeholders so the calculator can work; users can edit them in the UI.
+-->
+
+<div class="wrap">
+  <header class="hero">
+    <div class="brand">
+      <span class="arches" aria-hidden="true">M</span>
+      <h1>McVALUE Deal Finder</h1>
+    </div>
+    <p class="tag">Buy One, <strong>Add One for $1</strong></p>
+    <p class="sub">Based on the in-store poster. Details not listed on the sign are reasonably assumed in this page (see notes below).</p>
+  </header>
+
+  <section class="deal-card" aria-labelledby="deal-details-title">
+    <h2 id="deal-details-title">Deal details (extracted)</h2>
+    <ul class="kv">
+      <li><span>Restaurant</span><strong>McDonald’s</strong></li>
+      <li><span>Deal type</span><strong>Buy One, Add One for $1</strong></li>
+      <li><span>Price</span><strong>Second item costs $1</strong></li>
+      <li><span>When</span><strong>Not specified on sign → assuming all day, limited-time</strong></li>
+      <li><span>Where</span><strong>Participating locations (assumed)</strong></li>
+    </ul>
+  </section>
+
+  <section class="calc" aria-labelledby="calc-title">
+    <h2 id="calc-title">Savings calculator</h2>
+    <form id="dealForm">
+      <div class="row">
+        <label for="item">Choose an item</label>
+        <select id="item" name="item">
+          <!-- Assumed baseline prices; editable below -->
+          <option value="burger" data-regular="4.79">Cheeseburger</option>
+          <option value="chicken" data-regular="5.49">Crispy Chicken Sandwich</option>
+          <option value="nuggets" data-regular="5.99">10-pc Chicken McNuggets</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label for="regularPrice">Regular price (editable)</label>
+        <div class="money">
+          <span>$</span>
+          <input id="regularPrice" type="number" step="0.01" min="0" value="4.79" />
+        </div>
+        <small class="hint">Use your local menu price for best accuracy.</small>
+      </div>
+
+      <div class="row">
+        <label for="qty">How many are you buying?</label>
+        <input id="qty" type="number" min="1" step="1" value="2" />
+        <small class="hint">Tip: the deal applies in pairs (every second item is $1).</small>
+      </div>
+
+      <div class="row">
+        <label for="addOnPrice">“Add One” price</label>
+        <div class="money">
+          <span>$</span>
+          <input id="addOnPrice" type="number" step="0.01" min="0" value="1.00" />
+        </div>
+      </div>
+
+      <button type="button" id="calcBtn" class="cta">Calculate savings</button>
+    </form>
+
+    <div class="result" id="result" aria-live="polite">
+      <div class="totals">
+        <div>
+          <h3>Regular total</h3>
+          <p id="regularTotal">$0.00</p>
+        </div>
+        <div>
+          <h3>Deal total</h3>
+          <p id="dealTotal">$0.00</p>
+        </div>
+        <div class="save">
+          <h3>You save</h3>
+          <p id="saveAmt">$0.00</p>
+          <span id="savePct" class="badge">0% off</span>
+        </div>
+      </div>
+      <p class="blurb" id="blurb"></p>
+    </div>
+  </section>
+
+  <section class="notes" aria-labelledby="notes-title">
+    <h2 id="notes-title">Assumptions & notes</h2>
+    <ul>
+      <li>If you buy an odd number of items, the last unpaired item is charged at full regular price.</li>
+      <li>Calculator compares “regular price × quantity” vs. the deal where each pair costs “regular price + $1”.</li>
+      <li>Poster didn’t show time/day limits → we assume it’s an all-day, limited-time offer at participating locations. Check your local store/app for exact terms.</li>
+    </ul>
+  </section>
+
+  <footer class="foot">
+    <small>Unofficial, for consumer information. Not affiliated with McDonald’s.</small>
+  </footer>
+</div>
