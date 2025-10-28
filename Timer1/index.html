@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fridge Expiry Timer</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrapper">
+<div class="header">
+<div>
+<h1>Fridge Expiry Timer</h1>
+<div class="sub">Track up to eight items and see live countdowns until they expire.</div>
+</div>
+<div class="controls">
+<div class="now" id="now"></div>
+<button class="refresh" id="refreshBtn" aria-label="Refresh countdowns">Refresh</button>
+</div>
+</div>
+
+
+<div class="grid" id="grid" aria-live="polite"></div>
+
+
+<div class="legend">
+<span class="dot"></span> Fresh
+<span class="dot warning"></span> Expiring soon (&lt; 48h)
+<span class="dot danger"></span> Expired
+</div>
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>
