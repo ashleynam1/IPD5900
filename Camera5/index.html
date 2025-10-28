@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>To buy or not to buy?</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <!-- Top: image first, jokes second -->
+  <header class="uploader">
+    <div class="uploader-row">
+      <label class="file-label">
+        <span>📤 Upload poster image</span>
+        <input id="posterFile" type="file" accept="image/*"/>
+      </label>
+
+      <div class="or">or</div>
+
+      <label class="url-label">
+        <span>🔗 Paste image URL</span>
+        <input id="posterUrl" type="url" placeholder="https://example.com/poster.jpg"/>
+        <button id="applyPoster" class="btn tiny">Load URL</button>
+      </label>
+
+      <div id="uploadStatus" class="status">No image yet — feed me pixels!</div>
+    </div>
+  </header>
+
+  <main class="center">
+    <button id="decideBtn" class="cta">To buy or not to buy?</button>
+
+    <!-- Loading + Result -->
+    <div id="loader" class="loader" hidden>
+      <div class="spinner"></div>
+      <div class="loading-text">consulting the snack prophecy…</div>
+    </div>
+
+    <div id="result" class="result" hidden>
+      <h1 id="verdictText"></h1>
+      <button id="whyBtn" class="linkish">see why →</button>
+    </div>
+  </main>
+
+  <!-- WHY MODAL — starts hidden; only appears after “see why” -->
+  <div id="whyModal" class="modal" hidden aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="whyTitle">
+      <header class="modal-header">
+        <h2 id="whyTitle">Why this verdict</h2>
+        <button id="closeModal" class="icon-btn" aria-label="Close">✕</button>
+      </header>
+
+      <!-- Savings ring -->
+      <section class="savings">
+        <canvas id="ring" width="160" height="160" aria-label="Savings ring"></canvas>
+        <div class="ring-label">
+          <div id="pctLabel">50%</div>
+          <small>estimated savings</small>
+        </div>
+
+        <ul class="kv">
+          <li><span>Regular total</span><strong id="regularTotal">$21.00</strong></li>
+          <li><span>Deal total</span><strong id="dealTotal">$10.50</strong></li>
+          <li><span>You save</span><strong id="saveTotal">$10.50</strong></li>
+        </ul>
+      </section>
+
+      <!-- Tiny assumption tuner -->
+      <section class="assumptions">
+        <details>
+          <summary class="linkish">Adjust assumptions (for math nerds)</summary>
+          <div class="assumptions-grid">
+            <label>Regular price ($) <input id="price" type="number" step="0.01" value="10.50"></label>
+            <label>Quantity <input id="qty" type="number" min="1" max="2" value="2"></label>
+            <label>Deal type
+              <select id="dealType">
+                <option value="bogo" selected>BOGO (pay for half, rounded up)</option>
+                <option value="second1">Add-one for $1 (two items)</option>
+                <option value="perPiece">Fixed per-piece (enter promo/unit)</option>
+              </select>
+            </label>
+            <label>Per-piece promo price ($) <input id="perPiecePrice" type="number" step="0.01" value="1.00"></label>
+            <button id="recalc" class="btn tiny">Recalculate</button>
+          </div>
+        </details>
+      </section>
+
+      <!-- Poster + flags overlay -->
+      <section class="poster">
+        <div class="poster-stage">
+          <img id="posterImg" alt="Poster will appear here once you feed it a file or URL"/>
+          <div id="flagsLayer"></div>
+        </div>
+
+        <div class="legend">
+          <span class="swatch green"></span>Green (Low) —
+          <span class="swatch yellow"></span>Yellow (Medium) —
+          <span class="swatch red"></span>Red (High)
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- confetti canvas -->
+  <canvas id="confetti" class="confetti" hidden></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
