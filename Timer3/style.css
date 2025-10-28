@@ -1,0 +1,122 @@
+:root{
+  --bg:#f6f7fb;
+  --panel:#ffffff;
+  --text:#171717;
+  --muted:#6b7280;
+  --accent:#222;
+  --stem:#6b4b2a;
+  --stem-tip:#4a321b;
+  --outline:#a37c1d;
+  --shadow:#d7dae3;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  color:var(--text);
+  background:
+    radial-gradient(1200px 600px at 50% -10%, #ffffff 0%, #eef1f7 50%, var(--bg) 100%);
+}
+
+.app{
+  max-width:760px;
+  margin:40px auto 80px;
+  padding:24px;
+}
+
+h1{
+  margin:0 0 16px;
+  font-size: clamp(1.4rem, 2vw + 1rem, 2rem);
+  font-weight: 800;
+  letter-spacing:-0.02em;
+}
+
+.stage{
+  background:var(--panel);
+  border:1px solid #e8e8ee;
+  border-radius:20px;
+  padding:24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.05);
+}
+
+#banana-svg{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+/* Banana styling */
+.banana{
+  fill: hsl(90,70%,45%); /* start green; JS updates this */
+  filter: drop-shadow(0 10px 16px rgba(0,0,0,.08));
+}
+.banana-outline{
+  fill:none;
+  stroke: var(--outline);
+  stroke-width: 2;
+  opacity:.35;
+}
+.stem{ fill: var(--stem); }
+.stem-tip{ fill: var(--stem-tip); }
+.shadow{ fill: var(--shadow); opacity:.6; }
+
+/* UI */
+.readout{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:16px 0 0;
+}
+.time{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.elapsed{
+  font-size:1.25rem;
+  font-weight:700;
+}
+.ripeness{
+  font-size:.95rem;
+  color:var(--muted);
+}
+
+.controls{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.btn{
+  background:#111827;
+  color:#fff;
+  border:none;
+  border-radius:12px;
+  padding:10px 14px;
+  font-weight:600;
+  letter-spacing:.2px;
+  cursor:pointer;
+}
+.btn:active{ transform: translateY(1px); }
+
+.speed{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  background:#f1f3f8;
+  border-radius:12px;
+  border:1px solid #e7e9f2;
+}
+.speed input[type="range"]{ width:140px; }
+.speed output{ min-width:2ch; text-align:right; font-variant-numeric: tabular-nums; }
+
+.hint{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:.9rem;
+}
