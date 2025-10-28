@@ -1,0 +1,199 @@
+<!-- =========================
+PROMO REALITY CHECK — HTML
+Poster interpreted from: "McVALUE — Buy One, Add One for $1"
+NOTE: The original poster image path provided in this chat is /mnt/data/Screenshot 2025-09-04 at 8.47.30 PM.png.
+On CodePen this path won't exist, so we use a visible inline SVG poster + per-product placeholders.
+Assumptions (explained where used in JS comments too):
+- Restaurant: McDonald's (branding style + "McVALUE")
+- Headline: "Buy One, Add One for $1"
+- Deal type: BOGO-style (second item for $1)
+- Price: $1 for the additional eligible item
+- Time/day restrictions: NOT shown on the poster → assume "All Day, Mon–Sun" at participating locations
+- Eligible products inferred from imagery: Cheeseburger, Crispy Chicken Sandwich, Chicken McNuggets, Fries
+- Regular prices (editable in UI) are reasonable estimates for demo math, not guarantees.
+========================= -->
+<div class="site">
+  <!-- HERO / DEAL SUMMARY -->
+  <header class="hero card">
+    <div class="hero-left">
+      <div class="brand">McDonald's</div>
+      <h1 class="headline">McVALUE: Buy One, <span class="accent">Add One for $1</span></h1>
+      <p class="subhead">BOGO-style deal — second eligible item is just <strong>$1</strong>.</p>
+
+      <!-- Valid days/time (assumed; clearly labeled as assumption) -->
+      <div class="validity">
+        <span class="badge days" title="Assumption based on absent schedule on poster">Mon</span>
+        <span class="badge days">Tue</span>
+        <span class="badge days">Wed</span>
+        <span class="badge days">Thu</span>
+        <span class="badge days">Fri</span>
+        <span class="badge days">Sat</span>
+        <span class="badge days">Sun</span>
+        <span class="badge time"><strong>All Day</strong></span>
+        <small class="assumption-note">*No schedule printed → assumed all day; participating locations only.</small>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn primary" href="#calculator">Check Your Savings</a>
+        <a class="btn ghost" href="#audit">Read the Promo Reality Check</a>
+      </div>
+    </div>
+
+    <!-- Poster image (inline SVG recreation so it works on CodePen) -->
+    <div class="hero-right">
+      <div class="poster-wrap" id="posterWrap" aria-label="Poster preview">
+        <!-- Simple SVG poster surrogate -->
+        <svg viewBox="0 0 300 400" class="poster-svg" role="img" aria-label="McVALUE Buy One, Add One for $1">
+          <defs>
+            <linearGradient id="bun" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f7b25c"/>
+              <stop offset="100%" stop-color="#c9772f"/>
+            </linearGradient>
+          </defs>
+          <rect width="300" height="400" fill="#ffffff" rx="12"/>
+          <rect x="16" y="16" width="140" height="36" rx="6" fill="#f9a825"/>
+          <text x="22" y="40" font-size="20" font-weight="800" font-family="Inter, system-ui">McVALUE</text>
+          <text x="16" y="90" font-size="18" font-weight="700" font-family="Inter, system-ui">Buy One,</text>
+          <text x="16" y="112" font-size="22" font-weight="900" fill="#ff5722" font-family="Inter, system-ui">Add One</text>
+          <g>
+            <circle cx="230" cy="100" r="30" fill="#ffca28" stroke="#000" stroke-width="2"></circle>
+            <text x="217" y="105" font-size="18" font-weight="900">$1</text>
+          </g>
+          <!-- Burger -->
+          <ellipse cx="110" cy="230" rx="90" ry="40" fill="url(#bun)"/>
+          <rect x="30" y="230" width="160" height="18" fill="#5a2a10"/>
+          <rect x="35" y="250" width="150" height="10" fill="#ffcc33"/>
+          <!-- Chicken sandwich -->
+          <ellipse cx="240" cy="220" rx="45" ry="25" fill="url(#bun)"/>
+          <rect x="200" y="220" width="80" height="16" fill="#e07a17"/>
+          <!-- Nuggets + fries blocks -->
+          <rect x="40" y="300" width="60" height="35" rx="6" fill="#f0a84a"/>
+          <rect x="110" y="300" width="60" height="35" rx="6" fill="#f0a84a"/>
+          <rect x="200" y="300" width="70" height="35" rx="6" fill="#ffd54f"/>
+        </svg>
+      </div>
+      <div class="shred-controls">
+        <button class="btn danger" id="shredBtn">Not impressed? Shred the poster</button>
+        <button class="btn" id="resetShredBtn" disabled>Reset Poster</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PRODUCTS -->
+  <section class="products card" id="products">
+    <h2>Eligible Items (inferred from the poster)</h2>
+    <p class="muted">We identified these from the imagery. Quantities/sizes were not printed, so we assume standard single-serve portions.</p>
+    <div class="grid">
+      <div class="prod">
+        <div class="prod-img burger"></div>
+        <h3>Cheeseburger</h3>
+        <p class="muted">Est. regular: <span class="money" data-price="4.29">$4.29</span></p>
+      </div>
+      <div class="prod">
+        <div class="prod-img chicken"></div>
+        <h3>Crispy Chicken Sandwich</h3>
+        <p class="muted">Est. regular: <span class="money" data-price="5.99">$5.99</span></p>
+      </div>
+      <div class="prod">
+        <div class="prod-img nuggets"></div>
+        <h3>Chicken McNuggets (6 pc)</h3>
+        <p class="muted">Est. regular: <span class="money" data-price="4.79">$4.79</span></p>
+      </div>
+      <div class="prod">
+        <div class="prod-img fries"></div>
+        <h3>Fries (Medium)</h3>
+        <p class="muted">Est. regular: <span class="money" data-price="3.49">$3.49</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAVINGS CALCULATOR -->
+  <section class="calculator card" id="calculator">
+    <h2>Deal Savings Calculator</h2>
+    <p class="muted">Pick the first item at regular price, then the $1 “Add One”. You can fine-tune regular prices if they differ at your location.</p>
+
+    <form class="calc-form" onsubmit="return false;">
+      <div class="form-row">
+        <label>Item #1 (regular price)</label>
+        <select id="item1"></select>
+        <input id="price1" type="number" step="0.01" min="0" value="0">
+      </div>
+      <div class="form-row">
+        <label>Item #2 (deal item for $1)</label>
+        <select id="item2"></select>
+        <input id="price2" type="number" step="0.01" min="0" value="0">
+      </div>
+
+      <div class="form-row halves">
+        <div>
+          <label>Deal price for item #2</label>
+          <input id="dealPrice" type="number" step="0.01" min="0" value="1.00">
+          <small class="muted">From poster “Add One for $1”.</small>
+        </div>
+        <div>
+          <label>Quantity (pairs)</label>
+          <input id="qty" type="number" min="1" value="1">
+        </div>
+      </div>
+
+      <div class="results">
+        <div class="pill" id="regTotal">$0.00 Regular Total</div>
+        <div class="pill good" id="dealTotal">$0.00 With Deal</div>
+        <div class="pill info" id="savings">$0.00 saved (0%)</div>
+      </div>
+    </form>
+  </section>
+
+  <!-- PROMO REALITY CHECK -->
+  <section class="audit card" id="audit">
+    <h2>Promo Reality Check</h2>
+
+    <!-- (1) Summary -->
+    <div class="audit-block">
+      <h3>1) Summary</h3>
+      <ul class="bullets">
+        <li><strong>Headline detected:</strong> “McVALUE — Buy One, Add One for $1”</li>
+        <li><strong>Offer type:</strong> BOGO variant (second item fixed price)</li>
+        <li><strong>Verdict:</strong> <span class="tag good">Fair Value</span> if second item is same or lower price than the first; less effective if you needed only one item.</li>
+      </ul>
+    </div>
+
+    <!-- (2) Potential false-marketing flags -->
+    <div class="audit-block">
+      <h3>2) Potential False-Marketing Flags</h3>
+      <ul class="flags">
+        <li><span class="sev high">HIGH</span> <strong>Ambiguous scope:</strong> Poster doesn’t list eligible items or sizes explicitly (only images).</li>
+        <li><span class="sev med">MED</span> <strong>Price bubble partially obscured:</strong> The “$1” appears inside a circle; taxes and regional pricing aren’t mentioned.</li>
+        <li><span class="sev med">MED</span> <strong>Participation caveat not printed:</strong> Typically “at participating locations” applies but isn’t shown.</li>
+        <li><span class="sev low">LOW</span> <strong>“Value” branding:</strong> The “McVALUE” label primes savings even when real savings depend on your item choices.</li>
+      </ul>
+    </div>
+
+    <!-- (3) Historical price context chart -->
+    <div class="audit-block">
+      <h3>3) Historical Price Context (mock data)</h3>
+      <p class="muted">Twelve months of simulated average menu prices per item to help eyeball whether $1 add-on looks compelling. (Data is generated in JS for demo.)</p>
+      <canvas id="priceChart" width="900" height="320" aria-label="12-month price trends"></canvas>
+      <div class="legend" id="chartLegend"></div>
+    </div>
+
+    <!-- (4) Recommendation -->
+    <div class="audit-block">
+      <h3>4) Recommendation</h3>
+      <p id="recommendation">
+        If your second item’s regular price is higher than $1 (it almost always is), the effective discount equals
+        <strong>(regular price of cheaper item − $1)</strong>. For example, pairing a $5.99 chicken sandwich with a $4.79 nuggets set makes the second item ~<strong>79% off</strong>. If you only want one item, skip the deal and just pay regular price.
+      </p>
+    </div>
+
+    <!-- (5) Shred the poster (interactive) — controls surface also placed in hero -->
+    <div class="audit-block">
+      <h3>5) Want to vent?</h3>
+      <p>Try the shredder above. It slices the poster into strips and drops them. Click “Reset Poster” to restore.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Made for consumer clarity. This page is a demo; prices/eligibility vary by location and time.</p>
+  </footer>
+</div>
