@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Banana Ripening Timer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <h1>Banana Ripening Timer</h1>
+
+    <section class="stage">
+      <svg id="banana-svg" viewBox="0 0 360 240" aria-labelledby="bananaTitle bananaDesc" role="img">
+        <title id="bananaTitle">Banana that ripens over time</title>
+        <desc id="bananaDesc">Slim upside-down banana, stem on the left end (attached, rotated -90°), tip on the right. Color: green→yellow gradient (0–2d), solid yellow (2–6d), then browner (6–12d).</desc>
+
+        <!-- ground shadow -->
+        <ellipse cx="180" cy="210" rx="105" ry="15" class="shadow"></ellipse>
+
+        <!-- Flip the banana vertically -->
+        <g id="bananaGroup" transform="translate(0,240) scale(1,-1)">
+
+          <defs>
+            <clipPath id="banana-clip">
+              <path id="bananaPath" d="
+                M 48 184
+                C 20 136, 42 66, 148 48
+                C 236 34, 308 66, 332 122
+                C 292 138, 224 144, 168 134
+                C 116 125, 80 144, 56 184
+                Z" />
+            </clipPath>
+
+            <!-- Gradient for days 0–2 -->
+            <linearGradient id="ripenGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop id="gStop1" offset="0%"  stop-color="#eaf28a"/>
+              <stop id="gStop2" offset="100%" stop-color="#a8d34b"/>
+            </linearGradient>
+          </defs>
+
+          <!-- STEM: attached to the banana start; rotated -90° -->
+          <!-- Tweak translate a few pixels if you want it tighter/looser -->
+          <g id="stem" transform="translate(48,184) rotate(-90)">
+            <rect x="-10" y="-6" width="26" height="12" rx="3" class="stem"></rect>
+            <rect x="14" y="-8" width="9" height="18" rx="2" class="stem-tip"></rect>
+          </g>
+
+          <!-- Banana body. JS will set inline style fill so it overrides CSS -->
+          <path id="bananaFill" class="banana" d="
+            M 48 184
+            C 20 136, 42 66, 148 48
+            C 236 34, 308 66, 332 122
+            C 292 138, 224 144, 168 134
+            C 116 125, 80 144, 56 184
+            Z" style="fill:url(#ripenGradient)"/>
+
+          <!-- Outline -->
+          <path class="banana-outline" d="
+            M 48 184
+            C 20 136, 42 66, 148 48
+            C 236 34, 308 66, 332 122
+            C 292 138, 224 144, 168 134
+            C 116 125, 80 144, 56 184
+            Z" />
+
+          <!-- Spots & bruises -->
+          <g id="speckles" clip-path="url(#banana-clip)"></g>
+          <g id="bruises"  clip-path="url(#banana-clip)"></g>
+        </g>
+      </svg>
+    </section>
+
+    <section class="readout">
+      <div class="time">
+        <span id="elapsedLabel" class="elapsed">0 days</span>
+        <span id="ripenessLabel" class="ripeness">Very Green</span>
+      </div>
+
+      <div class="controls">
+        <button id="startBtn" class="btn">Start</button>
+        <button id="pauseBtn" class="btn">Pause</button>
+        <button id="resetBtn" class="btn">Reset</button>
+
+        <label class="speed">
+          <span>Days / sec</span>
+          <input id="speedRange" type="range" min="0.25" max="5" step="0.25" value="1" />
+          <output id="speedOut">1×</output>
+        </label>
+      </div>
+    </section>
+
+    <p class="hint">Tip: 1 second = 1 day by default. Increase “Days / sec” to watch it ripen faster.</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
