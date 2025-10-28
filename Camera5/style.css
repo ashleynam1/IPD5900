@@ -1,0 +1,106 @@
+:root{
+  --ink:#1f2328;
+  --muted:#6b7280;
+  --bg:#f7f7f8;
+  --card:#ffffff;
+  --border:#e5e7eb;
+  --green:#15a46b;
+  --yellow:#e9b949;
+  --red:#d64545;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font:16px/1.5 system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial;color:var(--ink);background:var(--bg)}
+button{font:inherit}
+
+/* Uploader first */
+.uploader{background:#fff;border-bottom:1px solid var(--border);padding:.8rem 1rem}
+.uploader-row{max-width:980px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.75rem 1rem;align-items:end}
+.file-label,.url-label{display:flex;gap:.45rem;align-items:center}
+.file-label span,.url-label span{font-weight:700}
+.url-label input{width:min(48ch,60vw);padding:.5rem .6rem;border:1px solid var(--border);border-radius:10px}
+.btn.tiny{padding:.45rem .7rem;border:none;border-radius:10px;background:#111827;color:#fff;cursor:pointer}
+.or{opacity:.6}
+.status{margin-left:auto;color:var(--muted);font-weight:600}
+
+/* Center stage */
+.center{
+  min-height:calc(100svh - 76px);display:grid;place-items:center;padding:2rem;gap:1.25rem;text-align:center
+}
+
+/* Big round CTA */
+.cta{
+  width:min(82vw,360px);height:min(82vw,360px);
+  border-radius:50%;
+  border:none;
+  color:#fff;background:linear-gradient(135deg,#6a5cff,#4bb3ff);
+  box-shadow:0 18px 40px rgba(66,133,244,.35), inset 0 -10px 20px rgba(0,0,0,.15);
+  font-weight:900;letter-spacing:.3px;font-size:clamp(1.2rem,3.6vw,2rem);
+  cursor:pointer;transition:transform .05s ease;
+}
+.cta:active{transform:translateY(2px)}
+
+/* Loader */
+.loader{display:grid;place-items:center;gap:.6rem}
+.spinner{
+  width:52px;height:52px;border-radius:50%;
+  border:6px solid #dfe3ea;border-top-color:#6a5cff;animation:spin .9s linear infinite
+}
+.loading-text{color:var(--muted);font-weight:700;letter-spacing:.2px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Result styles */
+.result h1{font-size:clamp(2rem,8vw,3rem);margin:.25rem 0 .5rem}
+.result.buy h1{color:var(--green)}
+.result.nobuy h1{color:var(--red)}
+.linkish{background:none;border:none;padding:0;color:#2563eb;text-decoration:underline;cursor:pointer;font-weight:700}
+
+/* Modal */
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.45);
+  display:grid;place-items:center;padding:1rem;z-index:20;
+}
+/* CRUCIAL: keep it hidden until asked for */
+.modal[hidden]{display:none !important;}
+
+.modal-card{width:min(1000px,98vw);max-height:92svh;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.25);padding:1rem 1rem 1.25rem}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem}
+.icon-btn{background:#f3f4f6;border:1px solid var(--border);border-radius:10px;padding:.35rem .6rem;cursor:pointer}
+
+/* Savings */
+.savings{display:grid;grid-template-columns:160px 1fr;gap:1rem;align-items:center;padding:.5rem 0;position:relative}
+.kv{list-style:none;margin:0;padding:0;display:grid;row-gap:.3rem}
+.kv li{display:flex;justify-content:space-between;gap:1rem}
+.kv li span{color:var(--muted)}
+#ring{display:block}
+.ring-label{position:absolute;left:0;top:0;right:0;bottom:0;display:grid;place-items:center;pointer-events:none}
+.ring-label > #pctLabel{font-size:1.8rem;font-weight:900}
+
+/* Assumptions */
+.assumptions-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-top:.6rem}
+.assumptions-grid input,.assumptions-grid select{padding:.5rem .6rem;border:1px solid var(--border);border-radius:10px}
+
+/* Poster + flags */
+.poster-stage{position:relative;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff}
+.poster-stage img{width:100%;display:block;max-height:440px;object-fit:contain;background:#f8f9fb}
+#flagsLayer{position:absolute;inset:0;pointer-events:none}
+.flag{position:absolute;border:3px solid transparent;border-radius:8px;background:rgba(255,255,255,.02)}
+.flag.green{border-color:rgba(21,164,107,1);box-shadow:0 0 0 3px rgba(21,164,107,.25) inset}
+.flag.yellow{border-color:rgba(233,185,73,1);box-shadow:0 0 0 3px rgba(233,185,73,.25) inset}
+.flag.red{border-color:rgba(214,69,69,1);box-shadow:0 0 0 3px rgba(214,69,69,.25) inset}
+.flag .label{position:absolute;left:0;bottom:100%;transform:translateY(-6px);background:#111827;color:#fff;font-size:.8rem;padding:.2rem .45rem;border-radius:6px;white-space:nowrap}
+.legend{margin-top:.6rem;color:var(--muted)}
+.legend .swatch{display:inline-block;width:12px;height:12px;border-radius:3px;margin:0 .25rem -.12rem .5rem}
+.legend .green{background:var(--green)} .legend .yellow{background:var(--yellow)} .legend .red{background:var(--red)}
+
+/* Confetti canvas */
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
+
+/* Moody for Don't buy */
+body.dim .center{filter:grayscale(.1) brightness(.92)}
+body.dim::after{content:"";position:fixed;inset:0;background:radial-gradient(60% 60% at 50% 20%, transparent 0, transparent 50%, rgba(0,0,0,.25) 100%);pointer-events:none}
+
+@media (max-width:760px){
+  .assumptions-grid{grid-template-columns:1fr 1fr}
+  .uploader-row{gap:.5rem}
+}
