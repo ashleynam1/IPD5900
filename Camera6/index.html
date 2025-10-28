@@ -1,0 +1,94 @@
+<!-- External libs (client-side only) -->
+<script src="https://unpkg.com/tesseract.js@v5.0.2/dist/tesseract.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<main id="app" class="app" aria-live="polite">
+  <!-- LANDING -->
+  <section id="landing" class="view active" aria-label="Landing">
+    <header class="hero">
+      <h1>Promo Worth It?</h1>
+      <p>Upload a food promo poster, then ask the eternal question:</p>
+    </header>
+
+    <div class="uploader">
+      <label class="file-label" for="posterInput">Upload poster image</label>
+      <input id="posterInput" type="file" accept="image/*" aria-label="Upload a promo poster image for OCR" />
+      <div id="posterPreview" class="poster-preview" aria-live="polite"></div>
+    </div>
+
+    <button id="ctaAnalyze" class="cta" role="button" aria-controls="analysis" aria-label="Start analysis">
+      To buy or not to buy?
+    </button>
+    <p id="landingHint" class="hint" role="status" aria-live="polite" hidden>
+      Please upload an image first. I’m not psychic… yet.
+    </p>
+  </section>
+
+  <!-- ANALYSIS -->
+  <section id="analysis" class="view" aria-label="Analysis" aria-busy="true">
+    <div class="spinner" role="status" aria-live="assertive" aria-label="Running OCR and analysis">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+    <p id="ocrStatus" class="status">Warming up the brain cells…</p>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" class="view" aria-label="Result">
+    <div id="verdictCard" class="card">
+      <h2 id="verdictText">—</h2>
+      <p id="quip">—</p>
+      <div class="btn-row">
+        <button id="btnWhy" class="btn" aria-controls="why">see why →</button>
+        <button id="btnUploadNew" class="btn secondary" aria-controls="landing">Upload new image</button>
+      </div>
+    </div>
+    <canvas id="gloomVignette" class="vignette" aria-hidden="true"></canvas>
+  </section>
+
+  <!-- WHY -->
+  <section id="why" class="view" aria-label="Why">
+    <nav class="subnav">
+      <button id="btnBackToResult" class="link-back" aria-controls="result">← back to Result</button>
+      <button id="btnReset" class="link-reset" aria-controls="landing">Reset</button>
+    </nav>
+
+    <div class="why-grid">
+      <!-- LEFT: Explanations -->
+      <div class="why-left">
+        <section class="panel">
+          <h3>Savings</h3>
+          <div class="savings">
+            <div class="percent" id="savingsPercent">—</div>
+            <div class="prices">
+              <div>Promo: <strong id="promoPrice">$—</strong></div>
+              <div>Baseline: <strong id="basePrice">$—</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h3>Reasoning</h3>
+          <ul id="reasonList" class="reasons" aria-label="Reasoning details"></ul>
+        </section>
+
+        <section class="panel">
+          <h3>Marketing Flags</h3>
+          <ul id="flagList" class="flags" aria-label="Detected marketing flags"></ul>
+          <p class="flag-note">Tip: hover or focus a flag to spotlight its mark on the poster (and vice-versa).</p>
+        </section>
+      </div>
+
+      <!-- RIGHT: Poster + highlights -->
+      <div class="why-right">
+        <div class="poster-stage" id="posterStage" aria-label="Poster with highlights">
+          <img id="whyPoster" alt="Uploaded poster" />
+          <!-- Organic brush-stroke overlay -->
+          <svg id="highlightLayer" class="hlayer" xmlns="http://www.w3.org/2000/svg" aria-hidden="false" role="img"></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hidden canvas used for color extraction & OCR coordinate mapping -->
+  <canvas id="workCanvas" class="hidden" aria-hidden="true"></canvas>
+</main>
