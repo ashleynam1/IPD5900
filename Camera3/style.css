@@ -1,0 +1,67 @@
+:root{
+  --bg:#fafafa;
+  --fg:#111;
+  --muted:#6b7280;
+  --brand:#ffcc00;     /* playful nod to McD vibe (no brand assets used) */
+  --accent:#ef4444;    /* buttons / highlights */
+  --card:#ffffff;
+  --ring:#e5e7eb;
+  --ok:#16a34a;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+  color:var(--fg); background:var(--bg);
+  display:flex; align-items:center; justify-content:center; min-height:100vh; padding:24px;
+}
+.wrap{width:min(920px,100%); display:grid; gap:16px}
+header{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  flex-wrap:wrap;
+}
+.logo{
+  display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px;
+}
+.logo .badge{background:var(--brand); padding:6px 10px; border-radius:10px}
+.sub{color:var(--muted); font-size:.92rem}
+.grid{display:grid; gap:16px; grid-template-columns:1.1fr .9fr}
+@media (max-width:780px){ .grid{grid-template-columns:1fr} }
+.card{
+  background:var(--card); border:1px solid var(--ring); border-radius:18px; padding:18px;
+  box-shadow:0 8px 24px rgba(0,0,0,.05);
+}
+.deal-card{
+  display:grid; gap:12px; align-content:start;
+  background:
+    radial-gradient(1200px 300px at 50% -20%, rgba(255,204,0,.25), transparent 60%),
+    var(--card);
+}
+.deal-title{font-size:1.65rem; line-height:1.2}
+.pill{
+  display:inline-flex; align-items:center; gap:8px; 
+  border:1px dashed #d1d5db; padding:8px 12px; border-radius:999px; background:#fff;
+  font-weight:600;
+}
+.stats{display:flex; gap:12px; flex-wrap:wrap}
+.stat{background:#fff; border:1px solid var(--ring); border-radius:12px; padding:10px 12px; font-size:.95rem}
+.actions{display:flex; gap:10px; flex-wrap:wrap}
+.btn{
+  border:0; border-radius:12px; padding:12px 14px; font-weight:700; cursor:pointer;
+  transition:.15s transform ease, .15s opacity ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent); color:white}
+.btn-like{background:#111; color:#fff}
+.btn-ghost{background:#fff; border:1px solid var(--ring); color:#111}
+.tiny{font-size:.85rem; color:var(--muted)}
+.assumptions details{border-top:1px dashed var(--ring); padding-top:12px; margin-top:6px}
+.assumptions summary{cursor:pointer; font-weight:700}
+.fields{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px}
+.fields label{font-size:.85rem; color:var(--muted)}
+.fields input, .fields select{
+  width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--ring); background:#fff;
+}
+.notice{display:flex; align-items:flex-start; gap:10px; background:#fff; border:1px solid var(--ring); border-radius:12px; padding:12px}
+.check{color:var(--ok); font-weight:900}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+footer{color:var(--muted); font-size:.85rem; text-align:center; margin-top:6px}
