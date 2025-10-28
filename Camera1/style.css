@@ -1,0 +1,40 @@
+:root {
+  --bg:#0a0e16; --panel:#101625; --muted:#9aa3b2; --text:#e7e9ee;
+  --border:#1d2741; --accent:#5eead4; --accent2:#a78bfa;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);
+  background:radial-gradient(1100px 700px at 20% -10%,#1a2140 0%,var(--bg) 60%) no-repeat}
+a{color:var(--accent)} a:hover{text-decoration:underline}
+.app{max-width:980px;margin:32px auto;padding:0 16px 48px}
+header h1{margin:0 0 6px;font-size:28px}
+header p{margin:0 0 18px;color:var(--muted)}
+
+.uploader{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;text-align:center}
+.uploader.drag{outline:2px dashed var(--accent);outline-offset:-10px;background:#0e1426}
+#preview{display:none;max-width:100%;max-height:420px;margin:14px auto 0;border-radius:12px;border:1px solid var(--border)}
+.hint{color:var(--muted)}
+.toggle{display:inline-flex;gap:8px;align-items:center;margin-left:10px;color:var(--muted);font-size:14px}
+
+.actions{display:flex;align-items:center;gap:12px;margin:14px 0 0}
+.btn{background:#1a2040;border:1px solid var(--border);color:var(--text);border-radius:12px;padding:10px 14px;cursor:pointer}
+.btn:hover{filter:brightness(1.1)} .btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#08111a;border:none}
+.btn-ghost{background:transparent;border:1px dashed var(--border)}
+
+.progress{flex:1;height:10px;background:#0b1120;border-radius:999px;border:1px solid var(--border);overflow:hidden}
+.bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .2s}
+
+.results{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media (max-width:840px){.results{grid-template-columns:1fr}}
+
+.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px}
+.card h2{margin:4px 0 10px;font-size:18px}
+.mono{white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;background:#0b1120;border:1px solid var(--border);
+  border-radius:10px;padding:12px;color:#c7d2fe;min-height:80px}
+.mono.small{font-size:12px;min-height:40px}
+
+.store-block .brand{font-weight:700}
+.store-block .cta{display:inline-block;margin:8px 8px 0 0;padding:10px 14px;background:#e5f7ff;color:#0b0d12;border-radius:10px;font-weight:600}
+.store-block .cta.secondary{background:#f1ecff}
+.badge{display:inline-block;margin-left:8px;color:var(--muted);font-size:12px}
